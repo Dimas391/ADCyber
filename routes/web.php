@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\ToolController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -31,3 +32,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 // Route Modul
 Route::get('/modul', [ModulController::class, 'index'])->name('modul');
+
+// Route Tool
+Route::get('/tool', [ToolController::class, 'index'])->name('tool');

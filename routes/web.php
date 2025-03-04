@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ToolController;
+use App\Http\Controllers\MateriController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -35,3 +36,6 @@ Route::get('/modul', [ModulController::class, 'index'])->name('modul');
 
 // Route Tool
 Route::get('/tool', [ToolController::class, 'index'])->name('tool');
+
+// Route modul
+Route::get('/materi', [MateriController::class, 'index'])->name('materi');

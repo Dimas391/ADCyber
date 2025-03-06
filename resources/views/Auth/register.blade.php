@@ -25,60 +25,60 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div>
-                            <label for="NamaPengguna" class="block font-medium text-sm text-gray-700">Nama Pengguna</label>
+                            <label for="name" class="block font-medium text-sm text-gray-700">Nama Pengguna</label>
                             <input 
-                                id="NamaPengguna" 
-                                type="NamaPengguna" 
-                                name="NamaPengguna" 
+                                id="name" 
+                                type="name" 
+                                name="name" 
                                 class="mt-1 block w-full h-9 px-4 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                 required 
                                 autofocus 
-                                autocomplete="username"
+                                autocomplete="name"
                             >
-                            @error('NamaPengguna')
+                            @error('name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mt-4">
-                            <label for="AlamatEmail" class="block font-medium text-sm text-gray-700">Alamat Email</label>
+                            <label for="email" class="block font-medium text-sm text-gray-700">Alamat Email</label>
                             <input 
-                            id="AlamatEmail" 
-                            type="AlamatEmail" 
-                            name="AlamatEmail" 
+                            id="email" 
+                            type="email" 
+                            name="email" 
                             class="mt-1 block w-full h-9 px-4 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             required 
-                            autocomplete="current-AlamatEmail"
+                            autocomplete="email"
                         >
-                            @error('AlamatEmail')
+                            @error('email')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mt-4">
-                            <label for="KataSandi" class="block font-medium text-sm text-gray-700">Kata Sandi</label>
+                            <label for="password" class="block font-medium text-sm text-gray-700">Kata Sandi</label>
                             <input 
-                            id="KataSandi" 
-                            type="KataSandi" 
-                            name="KataSandi" 
+                            id="password" 
+                            type="password" 
+                            name="password" 
                             class="mt-1 block w-full h-9 px-4 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             required 
-                            autocomplete="current-KataSandi"
+                            autocomplete="password"
                         >
-                            @error('KataSandi')
+                            @error('password')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mt-4">
-                            <label for="KonfirmasiKataSandi" class="block font-medium text-sm text-gray-700">Konfirmasi Kata Sandi</label>
+                            <label for="password_confirmation" class="block font-medium text-sm text-gray-700">Konfirmasi Kata Sandi</label>
                             <input 
-                            id="KonfirmasiKataSandi" 
-                            type="KonfirmasiKataSandi" 
-                            name="KonfirmasiKataSandi" 
+                            id="password_confirmation" 
+                            type="password" 
+                            name="password_confirmation" 
                             class="mt-1 block w-full h-9 px-4 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             required 
-                            autocomplete="current-KonfirmasiKataSandi"
+                            autocomplete="password_confirmation"
                         >
                             @error('KataSandi')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

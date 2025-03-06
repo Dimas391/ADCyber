@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white overflow-hidden sm:rounded-lg">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="/login">
                         @csrf
                         <div>
                             <label for="email" class="block font-medium text-sm text-gray-700">Email</label>

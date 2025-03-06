@@ -3,11 +3,11 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\MateriController;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -18,15 +18,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
  });
 
- Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
- Route::post('/login', [LoginController::class, 'login']);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login'])->name('login.post');
 
- Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisterController::class, 'create'])
-        ->name('register');
+Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [LoginController::class, 'register'])->name('register.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::post('register', [RegisterController::class, 'store']);
-});
+// Route::get('Login', [LoginController::class, 'showLoginForm'])->name('Login');
+// Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+
+//  Route::middleware('guest')->group(function () {
+//     Route::get('register', [RegisterController::class, 'create'])
+//         ->name('register');
+
+//     Route::post('register', [RegisterController::class, 'store']);
+// });
 
 // Route Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

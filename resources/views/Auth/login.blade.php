@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <style>
+        #nprogress .bar {
+            background: #3b82f6 !important;
+            height: 3px !important;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <main class="relative">
@@ -136,5 +143,15 @@
             </section>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            NProgress.start(); // Mulai progress bar saat halaman dimuat
+            setTimeout(() => NProgress.done(), 1000); // Selesai dalam 1 detik (simulasi)
+        });
+
+        document.addEventListener("turbolinks:click", () => NProgress.start());
+        document.addEventListener("turbolinks:load", () => NProgress.done());
+    </script>
 </body>
 </html>

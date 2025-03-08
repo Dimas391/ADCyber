@@ -8,6 +8,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <style>
+        #nprogress .bar {
+            background: #3b82f6 !important; 
+            height: 3px !important;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -117,8 +124,18 @@
     </div>
 </div>
 
-        <!-- Sidebar -->
         <x-sidebar></x-sidebar>
 </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            NProgress.start();
+            setTimeout(() => NProgress.done(), 1000);
+        });
+
+        document.addEventListener("turbolinks:click", () => NProgress.start());
+        document.addEventListener("turbolinks:load", () => NProgress.done());
+</script>
 </body>
 </html>

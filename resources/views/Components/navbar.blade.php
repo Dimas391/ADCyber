@@ -30,7 +30,7 @@
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <h1 class="text-black-600 font-bold">Dimas Kurniawan</h1>
+            <h1 class="text-black-600 font-bold">{{Auth::user()->name ?? 'Guest'}}</h1>
         </div>
     </div>
 </nav>

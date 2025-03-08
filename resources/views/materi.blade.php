@@ -1,3 +1,4 @@
+@extends('dashboard')
 <!DOCTYPE html>
 <html lang="id">
 <head>

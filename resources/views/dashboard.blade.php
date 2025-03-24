@@ -60,49 +60,39 @@
             <a href="#" class="text-gray-600 hover:text-blue-900">Lihat Semua</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach(['Footprinting and Reconnaissance', 'Social Engineering', 'Cloud Computing', 'Hacking Web Application', 'Scanning Networks'] as $course)
-            <div class="border border-blue-900 rounded-xl p-4 bg-white shadow hover:shadow-lg transition-shadow duration-200">
-                <div class="w-full h-32 bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                    <svg class="w-20 h-20 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-                        <g id="icon" transform="scale(0.046875)">
-                            <path d="M175.702784,0 L213.333333,18.7946667 L250.963883,0 L426.666667,0 L426.666667,320 L261.013333,320 L213.333333,343.851392 L165.632,320 L0,320 L0,0 L175.702784,0 Z M165.632,42.6666667 L42.6666667,42.6666667 L42.6666667,277.333333 L175.702784,277.333333 L192,285.473 L192,55.851 L165.632,42.6666667 Z M384,42.6666667 L261.013333,42.6666667 L234.666,55.846 L234.666,285.473 L250.963883,277.333333 L384,277.333333 L384,42.6666667 Z M362.666667,170.666667 L362.666667,202.666667 L256,202.666667 L256,170.666667 L362.666667,170.666667 Z M170.666667,170.666667 L170.666667,202.666667 L64,202.666667 L64,170.666667 L170.666667,170.666667 Z M362.666667,85.3333333 L362.666667,117.333333 L256,117.333333 L256,85.3333333 L362.666667,85.3333333 Z M170.666667,85.3333333 L170.666667,117.333333 L64,117.333333 L64,85.3333333 L170.666667,85.3333333 Z"/>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <h3 class="font-bold">{{ $course }}</h3>
-                        <p class="text-sm text-gray-600">Dimas Kurniawan</p>
-                    </div>
-                    <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-blue-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                    </div>
-                </div>
-
-                {{-- Description snippet --}}
-                <p class="text-sm text-gray-600 mb-4">
-                    @if($course == 'Footprinting and Reconnaissance')
-                        Belajar bagaimana mengumpulkan data target untuk merancang serangan yang terarah
-                    @elseif($course == 'Social Engineering')
-                        Memahami teknik manipulasi psikologis dalam keamanan informasi
-                    @elseif($course == 'Cloud Computing')
-                        Pengenalan teknologi cloud dan implementasinya dalam bisnis
-                    @elseif($course == 'Hacking Web Application')
-                        Mempelajari kerentanan dan teknik pengujian aplikasi web
-                    @else
-                        Teknik dan metode untuk scanning jaringan dan deteksi sistem
-                    @endif
-                </p>
-
-                {{-- Start Course Button --}}
-                <button class="w-full bg-blue-900 text-white py-2 rounded-full text-sm">Mulai Kursus</button>
-            </div>
-            @endforeach
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @foreach($courses as $course)
+    <div class="border border-blue-900 rounded-xl p-6 bg-white shadow hover:shadow-lg transition-shadow">
+        <div class="w-full h-40 bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+        <svg class="w-20 h-20 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+        <g id="icon" transform="scale(0.046875)">
+        <path d="M175.702784,0 L213.333333,18.7946667 L250.963883,0 L426.666667,0 L426.666667,320 L261.013333,320 L213.333333,343.851392 L165.632,320 L0,320 L0,0 L175.702784,0 Z M165.632,42.6666667 L42.6666667,42.6666667 L42.6666667,277.333333 L175.702784,277.333333 L192,285.473 L192,55.851 L165.632,42.6666667 Z M384,42.6666667 L261.013333,42.6666667 L234.666,55.846 L234.666,285.473 L250.963883,277.333333 L384,277.333333 L384,42.6666667 Z M362.666667,170.666667 L362.666667,202.666667 L256,202.666667 L256,170.666667 L362.666667,170.666667 Z M170.666667,170.666667 L170.666667,202.666667 L64,202.666667 L64,170.666667 L170.666667,170.666667 Z M362.666667,85.3333333 L362.666667,117.333333 L256,117.333333 L256,85.3333333 L362.666667,85.3333333 Z M170.666667,85.3333333 L170.666667,117.333333 L64,117.333333 L64,85.3333333 L170.666667,85.3333333 Z"/>
+         </g>
+        </svg>
         </div>
+
+        <div class="mb-4">
+            <h3 class="text-xl font-bold mb-2">{{ $course->name }}</h3>
+            <p class="text-gray-600 mb-4">{{ $course->description }}</p>
+            
+            <div class="flex items-center mb-4">
+                <div class="flex items-center mr-4">
+                    <i class="fas fa-book text-blue-900 mr-2"></i>
+                    <span class="text-sm">{{ $course->tool->count() }} Tools</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-clock text-blue-900 mr-2"></i>
+                    <span class="text-sm">{{ $course->duration_hours }} Jam</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ route('courses.tool', $course->slug) }}" class="block w-full bg-blue-900 text-white py-3 rounded-full text-center font-medium hover:bg-blue-800 transition-colors">
+            Lihat Tools
+        </a>
+    </div>
+    @endforeach
+    </div>
     </div>
 
     {{-- Popular Categories Section --}}

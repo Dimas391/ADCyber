@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
@@ -42,7 +43,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/modul', [ModulController::class, 'index'])->name('modul');
 
 // Route Tool
-Route::get('/tool', [ToolController::class, 'index'])->name('tool');
+Route::get('/tool', [ToolController::class, 'index'])->name('tool.index');
 
 // Route modul
 Route::get('/materi', [MateriController::class, 'index'])->name('materi');
+
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+
+Route::get('/courses/{slug}/tool', [CourseController::class, 'showTools'])->name('courses.tool');

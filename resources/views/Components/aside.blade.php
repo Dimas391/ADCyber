@@ -6,11 +6,11 @@
         <span class="text-gray-600 block mt-10 w-full">Menu Utama</span>
         <div class="flex items-center gap-2 mt-4">
         <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
-            <span class="text-gray-600">Beranda</span>
+            <a href="{{ route('dashboard') }}" class="text-gray-600">Beranda</a>
         </div>
         <div class="flex items-center gap-2 mt-4">
         <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M300-80q-58 0-99-41t-41-99v-520q0-58 41-99t99-41h500v600q-25 0-42.5 17.5T740-220q0 25 17.5 42.5T800-160v80H300Zm-60-267q14-7 29-10t31-3h20v-440h-20q-25 0-42.5 17.5T240-740v393Zm160-13h320v-440H400v440Zm-160 13v-453 453Zm60 187h373q-6-14-9.5-28.5T660-220q0-16 3-31t10-29H300q-26 0-43 17.5T240-220q0 26 17 43t43 17Z"/></svg>
-            <span class="text-gray-600">Modul Belajar</span>
+            <a href="{{ route('modul') }}" class="text-gray-600">Modul Belajar</a>
         </div>
 
         {{-- Logo kuis --}}

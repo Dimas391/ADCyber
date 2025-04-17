@@ -25,7 +25,8 @@ class CourseController extends Controller
             ->with('tool')
             ->firstOrFail();
         
-        $tools = Tool::where('id', $course->id)->get();
+        $tools = $course->tool; // Mengambil semua tools yang terkait dengan course
+
         
         // Change the view path to match your existing file
         return view('tools', compact('course', 'tools'));

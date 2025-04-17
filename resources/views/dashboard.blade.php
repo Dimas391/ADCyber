@@ -47,7 +47,7 @@
                     <p class="text-gray-600 mb-3">Anda belum memulai kursus apapun. Mulai perjalanan belajar Anda dengan memilih kursus di bawah ini.</p>
                     
                     {{-- Get Started Button --}}
-                    <button class="bg-blue-900 text-white px-6 py-2 rounded-full text-sm">Mulai Belajar</button>
+                    <a href="{{ route('modul') }}"  class="bg-blue-900 text-white px-6 py-2 rounded-full text-sm">Mulai Belajar</a>
                 </div>
             </div>
         </div>

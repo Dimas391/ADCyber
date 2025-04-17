@@ -16,32 +16,18 @@ class CourseToolSeeder extends Seeder
         // Define courses with their associated tools
         $coursesWithTools = [
             [
+                'name' => 'Introduction to Ethical Hacking',
+                'description' => 'Memahami materi tentang cyber security',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 8,
+                'tools' => ['Introduction to Ethical Hacking']
+            ],
+            [
                 'name' => 'Footprinting and Reconnaissance',
                 'description' => 'Belajar bagaimana mengumpulkan data target untuk merancang serangan yang terarah',
                 'instructor' => 'Dimas Kurniawan',
                 'duration_hours' => 8,
-                'tools' => ['Maltego', 'Shodan', 'TheHarvester', 'Recon-ng', 'OSINT Framework']
-            ],
-            [
-                'name' => 'Social Engineering',
-                'description' => 'Memahami teknik manipulasi psikologis dalam keamanan informasi',
-                'instructor' => 'Dimas Kurniawan',
-                'duration_hours' => 10,
-                'tools' => ['SET (Social Engineering Toolkit)', 'Gophish', 'BeEF', 'Wifiphisher', 'SpeedPhish Framework']
-            ],
-            [
-                'name' => 'Cloud Computing',
-                'description' => 'Pengenalan teknologi cloud dan implementasinya dalam bisnis',
-                'instructor' => 'Dimas Kurniawan',
-                'duration_hours' => 12,
-                'tools' => ['AWS CLI', 'Azure PowerShell', 'Google Cloud SDK', 'Terraform', 'CloudSploit']
-            ],
-            [
-                'name' => 'Hacking Web Application',
-                'description' => 'Mempelajari kerentanan dan teknik pengujian aplikasi web',
-                'instructor' => 'Dimas Kurniawan',
-                'duration_hours' => 15,
-                'tools' => ['Burp Suite', 'OWASP ZAP', 'Sqlmap', 'Nikto', 'Dirb']
+                'tools' => ['Shodan', 'TheHarvester', 'Recon-ng', 'OSINT Framework']
             ],
             [
                 'name' => 'Scanning Networks',
@@ -50,6 +36,119 @@ class CourseToolSeeder extends Seeder
                 'duration_hours' => 8,
                 'tools' => ['Nmap', 'Wireshark', 'Metasploit', 'Nessus', 'OpenVAS']
             ],
+            [
+                'name' => 'Enumeration',
+                'description' => 'Teknik dan alat untuk mengumpulkan informasi sistem dan jaringan',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['Global Network Inventory', 'Advanced IP Scanner', 'SuperScan', 'Hyena', 'NetBIOS Enumerator', 'SoftPerfect Network Scanner', 'Nmap', 'Net Use', 'Target Machine', 'snmp_enum', 'Active Directory Explorer (ADExplorer)', 'Enumdlinux']
+            ],
+            // New courses added
+            [
+                'name' => 'Vulnerability Analysis',
+                'description' => 'Identifikasi dan analisis kerentanan sistem',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 12,
+                'tools' => ['Nessus', 'OpenVAS', 'GFI LanGuard', 'Nikto']
+            ],
+            [
+                'name' => 'System Hacking',
+                'description' => 'Teknik eksploitasi dan pengambilan akses sistem',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 15,
+                'tools' => ['Responder', 'SAM Hashes', 'Rainbow Tables', 'LOphtCrack', 'VNC Session', 'Escalating Privileges', 'TheFatRat', 'Metasploit', 'Spytech SpyAgent', 'Power Spy', 'NTFS Streams', 'White Space Steganography', 'OpenStego', 'Quick Stego', 'Covert_TCP', 'Auditpol']
+            ],
+            [
+                'name' => 'Malware Threats',
+                'description' => 'Analisis dan penanganan ancaman malware',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 12,
+                'tools' => ['njRAT', 'MoSucker', 'ProRat', 'Theef', 'HTTP RAT', 'JPS Virus Maker Tool', 'Internet Worm Maker Thing', 'VirusTotal', 'IDA Pro', 'OllyDbg', 'CurrPorts', 'Registry Entry Monitoring', 'Startup Program Monitoring', 'Device Driver Monitoring', 'Detecting Trojans', 'Clamwin']
+            ],
+            [
+                'name' => 'Sniffing',
+                'description' => 'Teknik intersepsi dan analisis lalu lintas jaringan',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['Cain & Abel', 'SMAC', 'Wireshark', 'Capsa Network Analyzer', 'Omnipeek Network Analyzer', 'ARP Poisoning in a Switch Based Network', 'XArp Tool']
+            ],
+            [
+                'name' => 'Social Engineering Advanced',
+                'description' => 'Teknik lanjutan manipulasi sosial dalam keamanan',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 8,
+                'tools' => ['Netcraft', 'PhishTank', 'Social Engineering Toolkit (SET)', 'SpeedPhish Framework (SPI)']
+            ],
+            [
+                'name' => 'Denial-of-Service',
+                'description' => 'Teknik serangan yang mengganggu ketersediaan layanan',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 8,
+                'tools' => ['Metasploit', 'hping3', 'HOIC', 'KFSemsor', 'Wireshark', 'httptest']
+            ],
+            [
+                'name' => 'Session Hijacking',
+                'description' => 'Teknik pencurian dan pembajakan sesi pengguna',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 8,
+                'tools' => ['Zed Attack Proxy (ZAP)', 'BetterCAP', 'Metasploit']
+            ],
+            [
+                'name' => 'Evading IDS and Firewalls',
+                'description' => 'Teknik menghindari sistem deteksi dan firewall',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['Snort', 'HoneyBOT', 'Honeypot', 'KFSensor Honeypot IDS', 'Nmap Evasion Techniques', 'HTTP/FTP Tunneling', 'Metasploit']
+            ],
+            [
+                'name' => 'Hacking Web Servers',
+                'description' => 'Teknik eksploitasi kerentanan web server',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 12,
+                'tools' => ['Skipfish', 'httprecon', 'ID Serve', 'Uniscan', 'FTP Credentials using Dictionary Attack']
+            ],
+            [
+                'name' => 'Advanced Web Application Hacking',
+                'description' => 'Teknik lanjutan eksploitasi aplikasi web',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 15,
+                'tools' => ['Parameter Tampering', 'XSS', 'Cross-Site Request Forgery (CSRF)', 'WPScan', 'Metasploit', 'Remote Command Execution', 'File Upload', 'Acunetix WVS', 'Vega']
+            ],
+            [
+                'name' => 'SQL Injection',
+                'description' => 'Teknik injeksi SQL untuk eksploitasi database',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['MSSQL Database', 'SQLMAP', 'IBM Security AppScan', 'N-Stalker']
+            ],
+            [
+                'name' => 'Wireless Network Hacking',
+                'description' => 'Teknik penetrasi jaringan nirkabel',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 8,
+                'tools' => ['Microsoft Network Monitor', 'Wireshark', 'Aircrack-ng']
+            ],
+            [
+                'name' => 'Mobile Platform Hacking',
+                'description' => 'Teknik eksploitasi platform mobile',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['Binary Payloads', 'Social Engineering Toolkit', 'DoS Attack', 'TheFatRat', 'Securing Android Devices', 'Metasploit']
+            ],
+            [
+                'name' => 'Advanced Cloud Computing',
+                'description' => 'Implementasi lanjutan teknologi cloud',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 12,
+                'tools' => ['ownCloud', 'LAMP Server', 'ClamAV', 'Slowloris Script']
+            ],
+            [
+                'name' => 'Cryptography Fundamentals',
+                'description' => 'Dasar-dasar kriptografi dan enkripsi',
+                'instructor' => 'Dimas Kurniawan',
+                'duration_hours' => 10,
+                'tools' => ['HashCalc', 'MD5 Calculator', 'CryptoForge', 'Advanced Encryption Package', 'BCTextEncoder', 'Self-Signed Certificates', 'VeraCrypt', 'Rohos Disk Encryption', 'CrypTool']
+            ]
         ];
 
         // Create all tool records first

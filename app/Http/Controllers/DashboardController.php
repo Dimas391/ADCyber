@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {  
     public function index()
     {
-        $courses = Course::with('tool')->get(); // Pastikan model Course tersedia
+        $courses = Course::with('tool')->get();
         return view('dashboard', compact('courses'));
     }
  }

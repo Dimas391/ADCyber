@@ -7,7 +7,28 @@
                 </svg>
             </div>
             <div class="flex items-center mt-5 ml-10 p-1">
-            <h1 class="font-bold text-xl">Selamat Pagi {{ Auth::user()->name ?? 'Guest'}}</h1>
+            <h1 id="salam" class="font-bold text-xl">
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const now = new Date();
+                const hour = now.getHours();
+                let salam = "";
+
+                if (hour >= 4 && hour < 11) {
+                salam = "Selamat Pagi";
+                } else if (hour >= 11 && hour < 15) {
+                salam = "Selamat Siang";
+                } else if (hour >= 15 && hour < 18) {
+                salam = "Selamat Sore";
+                } else {
+                salam = "Selamat Malam";
+                }
+
+                const userName = @json(Auth::user()->name ?? 'Guest');
+                document.getElementById("salam").textContent = `${salam} ${userName}`;
+            });
+            </script>
+            </h1>
             <svg class="ml-2 mt-1" transform="translate(0, -2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50">
                 <defs>
                     <linearGradient id="fireGradient" x1="0%" y1="100%" x2="100%" y2="0%">

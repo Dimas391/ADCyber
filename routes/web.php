@@ -47,7 +47,7 @@ Route::get('/tool', [ToolController::class, 'index'])->name('tool.index');
 
 // Route modul
 Route::get('/materi', [MateriController::class, 'index'])->name('materi');
-
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 
 Route::get('/courses/{slug}/tool', [CourseController::class, 'showTools'])->name('courses.tool');

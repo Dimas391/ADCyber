@@ -23,4 +23,9 @@ class Course extends Model
     {
         return $this->belongsToMany(Tool::class);
     }
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class);
+    }
 }

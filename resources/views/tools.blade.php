@@ -63,9 +63,10 @@
                     </div>
 
                     {{-- Start Button --}}
-                    <button class="w-full bg-blue-900 text-white py-2 rounded-full text-sm hover:bg-blue-800 transition-colors">
+                    <a href="{{ route('materi.show.course', ['course' => $course->id]) }}"
+                    class="w-full block text-center bg-blue-900 text-white py-2 rounded-full text-sm hover:bg-blue-800 transition-colors">
                         Mulai Belajar
-                    </button>
+                    </a>
                 </div>
                 @endforeach
             </div>

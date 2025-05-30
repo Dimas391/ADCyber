@@ -51,3 +51,19 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 
 Route::get('/courses/{slug}/tool', [CourseController::class, 'showTools'])->name('courses.tool');
+
+// Material routes
+Route::prefix('materi')->name('materi.')->group(function () {
+    // Show course overview (first module, no specific lesson)
+    Route::get('/{course}', [MateriController::class, 'show'])->name('show.course');
+    
+    // Show specific module (first lesson of the module)
+    Route::get('/{course}/module/{module}', [MateriController::class, 'show'])->name('show.module');
+    
+    // Show specific lesson
+    Route::get('/{course}/module/{module}/lesson/{lesson}', [MateriController::class, 'show'])->name('show');
+    
+    // Mark lesson as completed
+    Route::post('/{course}/module/{module}/lesson/{lesson}/complete', [MateriController::class, 'markLessonCompleted'])->name('complete');
+});
+

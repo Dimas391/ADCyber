@@ -53,17 +53,63 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'
 Route::get('/courses/{slug}/tool', [CourseController::class, 'showTools'])->name('courses.tool');
 
 // Material routes
-Route::prefix('materi')->name('materi.')->group(function () {
+// Material/Course Learning routes
+Route::prefix('materi')->name('materi.')->middleware(['auth'])->group(function () {
     // Show course overview (first module, no specific lesson)
     Route::get('/{course}', [MateriController::class, 'show'])->name('show.course');
     
-    // Show specific module (first lesson of the module)
+    // Show specific module (without specific lesson - shows module overview)
     Route::get('/{course}/module/{module}', [MateriController::class, 'show'])->name('show.module');
     
-    // Show specific lesson
+    // Show specific lesson within a module
     Route::get('/{course}/module/{module}/lesson/{lesson}', [MateriController::class, 'show'])->name('show');
-    
-    // Mark lesson as completed
-    Route::post('/{course}/module/{module}/lesson/{lesson}/complete', [MateriController::class, 'markLessonCompleted'])->name('complete');
 });
 
+// Completion routes
+Route::middleware(['auth'])->group(function () {
+    // Mark lesson as completed
+    Route::post('/lesson/{lesson}/complete', [MateriController::class, 'markLessonCompleted'])->name('lesson.complete');
+    
+    // Mark module as completed
+    Route::post('/module/{module}/complete', [MateriController::class, 'markModuleCompleted'])->name('module.complete');
+});
+
+// Quiz routes
+Route::prefix('quiz')->name('quiz.')->middleware(['auth'])->group(function () {
+    // Submit quiz answers
+    Route::post('/submit', [QuizController::class, 'submit'])->name('submit');
+    
+    // Get quiz results (optional - for AJAX)
+    Route::get('/results/{quiz}', [QuizController::class, 'getResults'])->name('results');
+});
+
+// Course routes (if not already defined)
+Route::prefix('courses')->name('courses.')->middleware(['auth'])->group(function () {
+    // Course index/listing
+    Route::get('/', [CourseController::class, 'index'])->name('index');
+    
+    // Show course details
+    Route::get('/{course}', [CourseController::class, 'show'])->name('show');
+    
+    // Enroll in course
+    Route::post('/{course}/enroll', [CourseController::class, 'enroll'])->name('enroll');
+});
+
+// Alternative route structure (if you prefer a more nested approach):
+/*
+Route::prefix('courses')->name('courses.')->middleware(['auth'])->group(function () {
+    Route::get('/', [CourseController::class, 'index'])->name('index');
+    Route::get('/{course}', [CourseController::class, 'show'])->name('show');
+    
+    // Nested material routes under courses
+    Route::prefix('{course}/materi')->name('materi.')->group(function () {
+        Route::get('/', [MateriController::class, 'show'])->name('index');
+        Route::get('/module/{module}', [MateriController::class, 'show'])->name('module');
+        Route::get('/module/{module}/lesson/{lesson}', [MateriController::class, 'show'])->name('lesson');
+        
+        // Completion routes
+        Route::post('/lesson/{lesson}/complete', [MateriController::class, 'markLessonCompleted'])->name('lesson.complete');
+        Route::post('/module/{module}/complete', [MateriController::class, 'markModuleCompleted'])->name('module.complete');
+    });
+});
+*/

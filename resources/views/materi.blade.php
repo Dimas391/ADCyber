@@ -93,9 +93,29 @@
                                 </div>
                             </div>
                             
-                            <div class="prose max-w-none">
+                            <div class="prose max-w-none mb-6">
                                 {!! nl2br(e($currentLesson->content)) !!}
                             </div>
+
+                            {{-- Mark as Complete Button --}}
+                            @if(!($currentLesson->is_completed ?? false))
+                            <form action="{{ route('lesson.complete', $currentLesson->id) }}" method="POST" class="mb-4">
+                                @csrf
+                                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    Tandai Selesai
+                                </button>
+                            </form>
+                            @else
+                            <div class="mb-4 flex items-center text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="font-medium">Materi telah selesai</span>
+                            </div>
+                            @endif
                         </div>
                         @else
                         {{-- Default Module Content when no specific lesson is selected --}}
@@ -116,10 +136,30 @@
                                 </div>
                             </div>
                             
-                            <div class="prose max-w-none">
+                            <div class="prose max-w-none mb-6">
                                 <p class="mb-4">{{ $currentModule->description }}</p>
                                 {!! nl2br(e($currentModule->content)) !!}
                             </div>
+
+                            {{-- Mark Module as Complete Button --}}
+                            @if(!($currentModule->is_completed ?? false))
+                            <form action="{{ route('module.complete', $currentModule->id) }}" method="POST" class="mb-4">
+                                @csrf
+                                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    Tandai Modul Selesai
+                                </button>
+                            </form>
+                            @else
+                            <div class="mb-4 flex items-center text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="font-medium">Modul telah selesai</span>
+                            </div>
+                            @endif
                         </div>
                         @endif
                         
@@ -145,33 +185,103 @@
                         </div>
                         @endif
                         
-                        {{-- Quiz Section (Optional - can be added later) --}}
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-                            <h2 class="text-xl font-bold mb-4">Kuis Cepat</h2>
-                            <p class="mb-4">Uji pemahaman Anda tentang materi ini:</p>
+                        {{-- Quiz Section - Only show if lesson/module is completed --}}
+                        @if(($currentLesson && ($currentLesson->is_completed ?? false)) || (!$currentLesson && ($currentModule->is_completed ?? false)))
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6" id="quiz-section">
+                            <div class="flex items-center mb-4">
+                                <div class="h-10 w-10 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-600 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-xl font-bold">Kuis Pemahaman</h2>
+                            </div>
+                            <p class="mb-6 text-gray-600">Selamat! Anda telah menyelesaikan materi. Uji pemahaman Anda dengan kuis di bawah ini:</p>
                             
-                            <div class="space-y-4">
-                                <div class="border border-gray-200 rounded-lg p-4">
-                                    <p class="font-medium mb-2">1. Apa yang dimaksud dengan Ethical Hacking?</p>
-                                    <div class="space-y-2">
-                                        <div class="flex items-center">
-                                            <input type="radio" name="q1" id="q1a" class="h-4 w-4 text-blue-900">
-                                            <label for="q1a" class="ml-2 text-sm">Hacking untuk tujuan jahat</label>
+                            <form id="quiz-form" action="{{ route('quiz.submit') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="lesson_id" value="{{ $currentLesson->id ?? '' }}">
+                                <input type="hidden" name="module_id" value="{{ $currentModule->id }}">
+                                
+                                <div class="space-y-6">
+                                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                        <p class="font-medium mb-4">1. Apa yang dimaksud dengan Ethical Hacking?</p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q1" value="a" id="q1a" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q1a" class="ml-3 text-sm cursor-pointer">Hacking untuk tujuan jahat dan merusak sistem</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q1" value="b" id="q1b" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q1b" class="ml-3 text-sm cursor-pointer">Hacking yang dilakukan dengan izin untuk meningkatkan keamanan sistem</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q1" value="c" id="q1c" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q1c" class="ml-3 text-sm cursor-pointer">Hacking tanpa izin untuk mencuri data</label>
+                                            </div>
                                         </div>
-                                        <div class="flex items-center">
-                                            <input type="radio" name="q1" id="q1b" class="h-4 w-4 text-blue-900">
-                                            <label for="q1b" class="ml-2 text-sm">Hacking untuk meningkatkan keamanan sistem</label>
+                                    </div>
+
+                                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                        <p class="font-medium mb-4">2. Manakah yang termasuk tahap dalam penetration testing?</p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q2" value="a" id="q2a" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q2a" class="ml-3 text-sm cursor-pointer">Reconnaissance, Scanning, Exploitation</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q2" value="b" id="q2b" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q2b" class="ml-3 text-sm cursor-pointer">Hanya scanning saja</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q2" value="c" id="q2c" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q2c" class="ml-3 text-sm cursor-pointer">Langsung melakukan attack</label>
+                                            </div>
                                         </div>
-                                        <div class="flex items-center">
-                                            <input type="radio" name="q1" id="q1c" class="h-4 w-4 text-blue-900">
-                                            <label for="q1c" class="ml-2 text-sm">Hacking tanpa izin</label>
+                                    </div>
+
+                                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                        <p class="font-medium mb-4">3. Apa tujuan utama dari kegiatan ethical hacking?</p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q3" value="a" id="q3a" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q3a" class="ml-3 text-sm cursor-pointer">Mencuri informasi rahasia</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q3" value="b" id="q3b" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q3b" class="ml-3 text-sm cursor-pointer">Mengidentifikasi dan memperbaiki kerentanan keamanan</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" name="q3" value="c" id="q3c" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                                <label for="q3c" class="ml-3 text-sm cursor-pointer">Merusak sistem komputer</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="mt-6 flex space-x-4">
+                                    <button type="submit" class="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        Periksa Jawaban
+                                    </button>
+                                    <button type="button" id="reset-quiz" class="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition">
+                                        Reset Jawaban
+                                    </button>
+                                </div>
+                            </form>
+
+                            {{-- Quiz Results (Hidden initially) --}}
+                            <div id="quiz-results" class="mt-6 hidden">
+                                <div class="border-t pt-6">
+                                    <h3 class="text-lg font-bold mb-4">Hasil Kuis</h3>
+                                    <div id="quiz-score" class="mb-4"></div>
+                                    <div id="quiz-feedback" class="space-y-2"></div>
+                                </div>
                             </div>
-                            
-                            <button class="mt-6 bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition">Periksa Jawaban</button>
                         </div>
+                        @endif
                     </div>
                     
                     {{-- Sidebar with Course Modules --}}
@@ -182,47 +292,75 @@
                                 <span class="text-sm text-gray-500">{{ $completedModules }}/{{ $totalModules }} selesai</span>
                             </div>
                             
-                            <div class="space-y-3">
+                            <div class="space-y-3 overflow-y-auto max-h-96">
                                 @foreach($course->modules as $module)
                                 <div class="border border-gray-200 rounded-lg overflow-hidden">
-                                    <div class="bg-blue-50 px-4 py-3 flex justify-between items-center">
-                                        <h3 class="font-medium">{{ $module->title }}</h3>
-                                        @if($module->id == $currentModule->id)
-                                            <span class="text-xs bg-blue-100 text-blue-800 py-1 px-2 rounded-full">Sedang Dipelajari</span>
-                                        @elseif($module->is_completed ?? false)
-                                            <span class="text-xs bg-green-100 text-green-800 py-1 px-2 rounded-full">Selesai</span>
-                                        @else
-                                            <span class="text-xs bg-gray-200 text-gray-600 py-1 px-2 rounded-full">Terkunci</span>
-                                        @endif
+                                    {{-- Module Header - Clickable --}}
+                                    <div class="bg-blue-50 px-4 py-3 cursor-pointer hover:bg-blue-100 transition" 
+                                         onclick="toggleModule({{ $module->id }})">
+                                        <div class="flex justify-between items-center">
+                                            <h3 class="font-medium text-sm">{{ $module->title }}</h3>
+                                            <div class="flex items-center space-x-2">
+                                                @if($module->id == $currentModule->id)
+                                                    <span class="text-xs bg-blue-500 text-white py-1 px-2 rounded-full">Aktif</span>
+                                                @elseif($module->is_completed ?? false)
+                                                    <span class="text-xs bg-green-500 text-white py-1 px-2 rounded-full">Selesai</span>
+                                                @else
+                                                    <span class="text-xs bg-gray-400 text-white py-1 px-2 rounded-full">Belum</span>
+                                                @endif
+                                                <svg class="w-4 h-4 transition-transform" id="arrow-{{ $module->id }}" 
+                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
                                     
-                                    @if($module->lessons && $module->lessons->count() > 0)
-                                    <div class="px-4 py-2">
-                                        <ul class="divide-y divide-gray-100">
-                                            @foreach($module->lessons as $lesson)
-                                            <li class="py-2 flex items-center">
-                                                @if($lesson->is_completed ?? false)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                                    </svg>
-                                                @elseif($currentLesson && $lesson->id == $currentLesson->id)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-9a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z" clip-rule="evenodd" />
-                                                        <path fill-rule="evenodd" d="M10 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                                                    </svg>
-                                                @else
-                                                    <div class="h-5 w-5 border-2 border-gray-300 rounded-full mr-2"></div>
-                                                @endif
-                                                
-                                                <a href="{{ route('materi.show', ['course' => $course->id, 'module' => $module->id, 'lesson' => $lesson->id]) }}" 
-                                                   class="text-sm {{ ($currentLesson && $lesson->id == $currentLesson->id) ? 'font-medium text-blue-900' : (($lesson->is_completed ?? false) ? 'text-gray-700' : 'text-gray-500') }}">
-                                                    {{ $lesson->title }}
-                                                </a>
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                    {{-- Module Lessons - Collapsible --}}
+                                    <div class="module-content" id="module-{{ $module->id }}" 
+                                         style="display: {{ $module->id == $currentModule->id ? 'block' : 'none' }}">
+                                        @if($module->lessons && $module->lessons->count() > 0)
+                                        <div class="px-4 py-2 bg-white">
+                                            <ul class="divide-y divide-gray-100">
+                                                @foreach($module->lessons as $lesson)
+                                                <li class="py-2">
+                                                  <a href="{{ route('materi.show', ['course' => $course, 'module' => $module, 'lesson' => $lesson]) }}"
+                                                    class="flex items-center hover:bg-gray-50 p-2 rounded transition group">
+                                                   
+                                                        @if($lesson->is_completed ?? false)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        @elseif($currentLesson && $lesson->id == $currentLesson->id)
+                                                            <div class="h-5 w-5 rounded-full bg-blue-500 mr-3 flex-shrink-0 flex items-center justify-center">
+                                                                <div class="h-2 w-2 bg-white rounded-full"></div>
+                                                            </div>
+                                                        @else
+                                                            <div class="h-5 w-5 border-2 border-gray-300 rounded-full mr-3 flex-shrink-0 group-hover:border-blue-400"></div>
+                                                        @endif
+                                                        
+                                                        <span class="text-sm {{ ($currentLesson && $lesson->id == $currentLesson->id) ? 'font-medium text-blue-900' : (($lesson->is_completed ?? false) ? 'text-gray-700' : 'text-gray-500 group-hover:text-gray-700') }}">
+                                                            {{ $lesson->title }}
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @else
+                                        {{-- If no lessons, show module link --}}
+                                        <div class="px-4 py-2 bg-white">
+                                           <a href="{{ route('materi.show.module', ['course' => $course->id, 'module' => $module->id]) }}"
+
+                                               class="flex items-center text-sm text-gray-600 hover:text-blue-900 transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                                Lihat Materi Modul
+                                            </a>
+                                        </div>
+                                        @endif
                                     </div>
-                                    @endif
                                 </div>
                                 @endforeach
                             </div>
@@ -267,5 +405,183 @@
             </div>
         </div>
     </div>
+
+    {{-- JavaScript for Interactive Features --}}
+    <script>
+        // Toggle Module Visibility
+        function toggleModule(moduleId) {
+            const content = document.getElementById('module-' + moduleId);
+            const arrow = document.getElementById('arrow-' + moduleId);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Quiz Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const quizForm = document.getElementById('quiz-form');
+            const resetButton = document.getElementById('reset-quiz');
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreDiv = document.getElementById('quiz-score');
+            const feedbackDiv = document.getElementById('quiz-feedback');
+
+            // Correct answers
+            const correctAnswers = {
+                q1: 'b', // Hacking yang dilakukan dengan izin untuk meningkatkan keamanan sistem
+                q2: 'a', // Reconnaissance, Scanning, Exploitation
+                q3: 'b'  // Mengidentifikasi dan memperbaiki kerentanan keamanan
+            };
+
+            // Answer explanations
+            const explanations = {
+                q1: {
+                    correct: 'Benar! Ethical hacking adalah praktik hacking yang dilakukan dengan izin dan bertujuan untuk meningkatkan keamanan sistem.',
+                    wrong: 'Salah. Ethical hacking adalah hacking yang dilakukan dengan izin untuk tujuan keamanan, bukan untuk merusak atau mencuri.'
+                },
+                q2: {
+                    correct: 'Benar! Tahap-tahap utama penetration testing meliputi Reconnaissance (pengumpulan informasi), Scanning (pemindaian), dan Exploitation (eksploitasi).',
+                    wrong: 'Salah. Penetration testing memiliki beberapa tahap sistematis: Reconnaissance, Scanning, Exploitation, dan lain-lain.'
+                },
+                q3: {
+                    correct: 'Benar! Tujuan utama ethical hacking adalah mengidentifikasi kerentanan keamanan untuk kemudian diperbaiki.',
+                    wrong: 'Salah. Ethical hacking bertujuan untuk mengidentifikasi dan memperbaiki kerentanan, bukan untuk aktivitas jahat.'
+                }
+            };
+
+            if (quizForm) {
+                quizForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(quizForm);
+                    let score = 0;
+                    let totalQuestions = 3;
+                    let feedback = [];
+
+                    // Check answers
+                    for (let i = 1; i <= totalQuestions; i++) {
+                        const questionKey = 'q' + i;
+                        const userAnswer = formData.get(questionKey);
+                        const isCorrect = userAnswer === correctAnswers[questionKey];
+                        
+                        if (isCorrect) {
+                            score++;
+                            feedback.push({
+                                question: i,
+                                correct: true,
+                                explanation: explanations[questionKey].correct
+                            });
+                        } else {
+                            feedback.push({
+                                question: i,
+                                correct: false,
+                                explanation: explanations[questionKey].wrong,
+                                correctAnswer: correctAnswers[questionKey]
+                            });
+                        }
+                    }
+
+                    // Display results
+                    const percentage = Math.round((score / totalQuestions) * 100);
+                    let scoreClass = 'text-red-600';
+                    let scoreMessage = 'Perlu belajar lebih lanjut';
+                    
+                    if (percentage >= 80) {
+                        scoreClass = 'text-green-600';
+                        scoreMessage = 'Excellent! Pemahaman Anda sangat baik';
+                    } else if (percentage >= 60) {
+                        scoreClass = 'text-yellow-600';
+                        scoreMessage = 'Good! Pemahaman Anda cukup baik';
+                    }
+
+                    scoreDiv.innerHTML = `
+                        <div class="flex items-center ${scoreClass}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-lg font-bold">Skor: ${score}/${totalQuestions} (${percentage}%)</span>
+                        </div>
+                        <p class="text-sm mt-1 ${scoreClass}">${scoreMessage}</p>
+                    `;
+
+                    // Display feedback
+                    feedbackDiv.innerHTML = feedback.map(item => `
+                        <div class="p-3 rounded-lg ${item.correct ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    ${item.correct ? 
+                                        '<svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>' :
+                                        '<svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>'
+                                    }
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium">Soal ${item.question}</p>
+                                    <p class="text-sm mt-1">${item.explanation}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    resultsDiv.classList.remove('hidden');
+                    resultsDiv.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            if (resetButton) {
+                resetButton.addEventListener('click', function() {
+                    quizForm.reset();
+                    resultsDiv.classList.add('hidden');
+                });
+            }
+        });
+
+        // Mark lesson/module as completed with AJAX
+        document.addEventListener('DOMContentLoaded', function() {
+            const completionForms = document.querySelectorAll('form[action*="complete"]');
+            
+            completionForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const button = form.querySelector('button[type="submit"]');
+                    const originalText = button.innerHTML;
+                    
+                    // Show loading state
+                    button.innerHTML = `
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Memproses...
+                    `;
+                    button.disabled = true;
+                    
+                    // Simulate API call (replace with actual AJAX)
+                    setTimeout(() => {
+                        // Show success state
+                        form.innerHTML = `
+                            <div class="mb-4 flex items-center text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="font-medium">Materi telah selesai</span>
+                            </div>
+                        `;
+                        
+                        // Show quiz if it exists
+                        const quizSection = document.getElementById('quiz-section');
+                        if (quizSection) {
+                            quizSection.style.display = 'block';
+                            quizSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 1500);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
